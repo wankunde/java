@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * 函数式接口：仅仅只包含一个抽象方法的接口
@@ -47,6 +48,13 @@ public class LambdaTest {
 			return -b.compareTo(a);
 		});
 		System.out.println(names.toString());
+
+		int count = 0;
+		List strings = Arrays.asList("a", "b", "c");
+		strings.forEach(s -> {
+//			count++; // 错误：不能更改count的值
+		});
+		
 
 	}
 }
