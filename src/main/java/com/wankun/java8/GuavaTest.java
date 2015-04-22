@@ -10,6 +10,24 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+class Person {
+	String firstName;
+	String lastName;
+
+	Person() {
+	}
+
+	Person(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [firstName=" + firstName + ", lastName=" + lastName + "]";
+	}
+}
+
 public class GuavaTest {
 
 	public static void main(String[] args) {

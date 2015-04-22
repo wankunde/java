@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateTest {
+public class LocalDateTimeTest {
 
 	public static void main(String[] args) {
 		// Clock类提供了访问当前日期和时间的方法，Clock是时区敏感的，可以用来取代 System.currentTimeMillis()

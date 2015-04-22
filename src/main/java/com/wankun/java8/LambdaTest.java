@@ -1,10 +1,15 @@
 package com.wankun.java8;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 函数式接口：仅仅只包含一个抽象方法的接口
@@ -21,7 +26,21 @@ interface Converter<F, T> {
 
 public class LambdaTest {
 
-	public static void main(String[] args) {
+	public static List<String> parse(Path path) throws Exception{
+        return Files.lines(path)
+                .parallel()
+                .flatMap(line -> Arrays.asList(line.split("\\b")).stream())
+                .collect(Collectors.groupingBy(w -> w, Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry<String, Long>::getValue).reversed())
+                .limit(20)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+   }
+	
+	public static void main(String[] args) throws Exception {
+		System.out.println(parse(Paths.get(args[0])));
+		
 		// lambda 表达式理解：当作任意只包含一个抽象方法的接口类型
 		Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
 		// 新的静态方法引用

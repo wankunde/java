@@ -36,6 +36,12 @@ public class MethodReferrance {
 		// 4. 构造方法使用
 		// create方法参数为Supplier<People> supplier,这里传入构造方法
 		People pp2 = People.create(People::new);
+
+		// 这个方式我是这么理解的，People::new 代表构造方法，
+		// Java编译器会自动根据PeopleFactory.create方法的签名来选择合适的构造函数
+		PeopleFactory<People> factory = People::new;
+		People pp3 = factory.create("李四", LocalDate.of(1989, 9, 20), Sex.FEMALE, "bb@163.com");
+
 	}
 
 	public static <T, SOURCE extends Collection<T>, DEST extends Collection<T>> DEST transferElements(SOURCE sourceCollection,
@@ -47,6 +53,10 @@ public class MethodReferrance {
 		return result;
 	}
 
+}
+
+interface PeopleFactory<P extends People> {
+	P create(String name, LocalDate birthday, Sex gender, String email);
 }
 
 class People {
