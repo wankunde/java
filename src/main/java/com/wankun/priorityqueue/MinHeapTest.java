@@ -1,4 +1,4 @@
-package com.wankun.test1;
+package com.wankun.priorityqueue;
 
 /**
  * 最小堆测试类

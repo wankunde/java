@@ -76,8 +76,10 @@ public class Md5Hashing {
 		nodes = new TreeMap<Long, Object>();
 		for (int i = 0; i < shards.size(); i++) {
 			Object shardInfo = shards.get(i);
+			// 改进使用类似 Ketama算法
+			byte[] md5byte = computeMd5("SHARD-" + i);
 			for (int j = 0; j < VIRTUAL_NUM; j++) {
-				nodes.put(hash(computeMd5("SHARD-" + i + "-NODE-" + j), j), shardInfo);
+				nodes.put(hash(md5byte, j), shardInfo);
 			}
 		}
 	}
@@ -96,6 +98,12 @@ public class Md5Hashing {
 		} else {
 			key = tailMap.firstKey();
 		}
+
+		// 在JDK1.6中，ceilingKey方法可以返回大于且离它最近的那个key
+		// key = nodes.ceilingKey(key);
+		// if (key == null) {
+		// key = nodes.firstKey();
+		// }
 		return nodes.get(key);
 	}
 

@@ -1,4 +1,4 @@
-package com.wankun.test1;
+package com.wankun.priorityqueue;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
