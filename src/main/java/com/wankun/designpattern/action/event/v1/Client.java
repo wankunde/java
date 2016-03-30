@@ -1,8 +1,5 @@
 package com.wankun.designpattern.action.event.v1;
 
-import org.junit.Before;
-import org.junit.Test;
-
 /**
  * @author wankun
  */
