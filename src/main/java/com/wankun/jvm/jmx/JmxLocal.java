@@ -18,10 +18,7 @@ import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
-import java.lang.management.RuntimeMXBean;
-import java.lang.management.ThreadMXBean;
+import java.lang.management.*;
 import java.util.Properties;
 
 public class JmxLocal {
@@ -45,6 +42,11 @@ public class JmxLocal {
 
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         RuntimeMXBean rmxb = ManagementFactory.newPlatformMXBeanProxy(server, "java.lang:type=Runtime", RuntimeMXBean.class);
+
+        // memory MX Bean
+        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+        System.out.println(memoryMXBean.getHeapMemoryUsage());
+        System.out.println(memoryMXBean.getNonHeapMemoryUsage());
     }
 
     public void remoteMBean() {
