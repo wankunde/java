@@ -1,0 +1,105 @@
+@startuml
+abstract class TreeNode {
+  == Pre-order 遍历，优先遍历父节点 ==
+  def transformDown()
+  == Post-order 遍历，优先遍历子节点 ==
+  def transformUp()<<>>
+}
+abstract class QueryPlan extends TreeNode
+
+package com.xueshuyuan.cn.view #green{
+    class PartitionStatistics
+
+    class RecordStatistics
+
+    class Statistics {
+      def getPartitionStatistics : Option[PartitionStatistics]
+    }
+
+    PartitionStatistics <-- Statistics  : Dependency
+}
+
+interface SparkPlanStats {
+  def stats: Statistics
+}
+Statistics <.. SparkPlanStats : Dependency
+
+
+''
+abstract class SparkPlan <<physical operators>> extends QueryPlan implements SparkPlanStats {
+  def executeCollectPublic()
+  ThreadPool subquery*
+}
+abstract class LogicalPlan extends QueryPlan
+interface UnaryExecNode extends SparkPlan
+
+class Exchange extends UnaryExecNode
+class BroadcastExchangeExec extends Exchange
+
+class FilterExec extends UnaryExecNode
+
+class HashAggregateExec extends UnaryExecNode implements CodegenSupport
+
+interface BinaryExecNode extends SparkPlan
+
+
+abstract class QueryStage  <<Adaptive Optimizer Scheduler>> extends BinaryExecNode {
+  def executeChildStages()
+  def prepareExecuteStage()
+
+  def executeStage(): RDD[InternalRow] = child.execute()
+  == 先执行子Stage，再executeStage()  ==
+  def doExecute()
+}
+class BroadcastQueryStage extends QueryStage {
+
+  def doExecuteBroadcast[T]()
+  == 主要完成在所有子Stage完成之后的Broadcast 工作==
+  def prepareBroadcast()
+}
+class ResultQueryStage extends QueryStage
+class ShuffleQueryStage extends QueryStage {
+  def executeStage()
+}
+ShuffleQueryStage --> ShuffleExchangeExec : 子调用
+
+class QueryExecution {
+  val logical: LogicalPlan
+  val analyzed: LogicalPlan
+  val optimizedPlan: LogicalPlan
+  val executedPlan: SparkPlan
+}
+
+
+object SQLExecution {
+  val executionId: String
+  val jobDesc: String
+  val queryExecution: QueryExecution
+}
+
+class ShuffleExchangeExec <<Performs a shuffle>> extends Exchange {
+  == 执行下面两个方法 ==
+  def doExecute()
+
+  def prepareShuffleDependency()
+  def preparePostShuffleRDD()
+
+}
+
+' 在PlanQueryStage中，
+' 如果节点为ShuffleExchangeExec，则替换为 ShuffleQueryStageInput(ShuffleQueryStage(e), e.output)
+' BroadcastExchangeExec，则替换为 BroadcastQueryStageInput(BroadcastQueryStage(e), e.output)
+'class ShuffleQueryStage extends Rule
+
+
+
+class QueryStageInput extends LeafExecNode
+class ShuffleQueryStageInput extends QueryStageInput
+class SkewedShuffleQueryStageInput extends QueryStageInput
+class BroadcastQueryStageInput extends QueryStageInput
+
+
+
+
+
+@enduml

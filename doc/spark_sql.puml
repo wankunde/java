@@ -1,0 +1,79 @@
+@startuml
+
+class SessionCatalog
+
+class RuleExecutor {
+
+  abstract class Strategy
+
+  class Once extends Strategy
+
+  class FixedPoint extends Strategy
+
+  class Batch
+
+
+    def execute(plan: TreeType): TreeType
+}
+
+abstract class Optimizer extends RuleExecutor
+
+
+abstract class LogicalPlan extends QueryPlan implements LogicalPlanStats
+
+class Analyzer extends RuleExecutor {
+  def executeAndCheck(plan: LogicalPlan): LogicalPlan
+}
+
+class SimpleAnalyzer extends Analyzer
+
+
+abstract class QueryPlanner {
+  val plan: LogicalPlan[PhysicalPlan]
+
+  def strategies: Seq[GenericStrategy[PhysicalPlan]]
+  def plan(plan: LogicalPlan): Iterator[PhysicalPlan]
+}
+
+abstract class SparkStrategies extends QueryPlanner
+
+
+
+class SparkPlanner extends SparkStrategies
+
+
+package Strategy #yellow {
+    abstract class GenericStrategy {
+      protected def planLater(plan: LogicalPlan): PhysicalPlan
+    }
+    abstract class SparkStrategy extends GenericStrategy
+
+    Strategy <-- SparkStrategy : alias name
+
+    class SpecialLimits extends Strategy
+    class JoinSelection extends Strategy implements PredicateHelper
+    class StatefulAggregationStrategy extends Strategy
+    class StreamingDeduplicationStrategy extends Strategy
+    class StreamingJoinStrategy extends Strategy
+    class Aggregation extends Strategy
+    class InMemoryScans extends Strategy
+    class StreamingRelationStrategy extends Strategy
+    class FlatMapGroupsWithStateStrategy extends Strategy
+    class BasicOperators extends Strategy
+
+
+    package HiveStrategies {
+      class Scripts extends Strategy
+      class HiveTableScans extends Strategy
+    }
+
+    package datasources {
+      class FileSourceStrategy extends Strategy
+      class DataSourceStrategy extends Strategy
+      class DataSourceV2Strategy extends Strategy
+    }
+}
+
+class FileSourceScanExec extends DataSourceScanExec
+
+@endumlSessionCatalog

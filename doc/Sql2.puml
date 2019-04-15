@@ -1,0 +1,19 @@
+@startuml
+
+command -> DataFrame: context.sql
+DataFrame -> LogicalPlan: dataset.logicalPlan
+LogicalPlan -> QueryExecution : sessionState.executePlan
+LogicalPlan -> LogicalPlan: lazy analyzed
+
+QueryExecution -> QueryExecution : hiveResultString 物理执行
+' sessionState.executePlan
+
+' RuleExecutor.execute 会具体对Plan做优化
+
+'lazy val executedPlan: SparkPlan = prepareForExecution(sparkPlan) 这里会应用很多物理优化规则，其中
+'adaptivePreparations.foldLeft(plan) { case (sp, rule) => rule.apply(sp)}
+
+
+' Exchange ： Volcano算法实现
+
+@enduml
