@@ -24,3 +24,12 @@
 |Reference to an instance method of a particular object	|	containingObject::instanceMethodName	|
 |Reference to an instance method of an arbitrary object of a particular type	|	ContainingType::methodName	|
 |Reference to a constructor	|	ClassName::new	|
+
+# CompletableFuture
+
+| 方法名	| 描述 |
+| ------ | -------- |
+| runAsync(Runnable runnable) | 使用ForkJoinPool.commonPool()作为它的线程池执行异步代码。|
+| runAsync(Runnable runnable, Executor executor) | 使用指定的thread pool执行异步代码。|
+| supplyAsync(Supplier<U> supplier) | 使用ForkJoinPool.commonPool()作为它的线程池执行异步代码，异步操作有返回值|
+| supplyAsync(Supplier<U> supplier, Executor executor) | 使用指定的thread pool执行异步代码，异步操作有返回值
