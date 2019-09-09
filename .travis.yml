@@ -1,8 +1,8 @@
 language: java
 
 dist: trusty
-#jdk:
-#  - oraclejdk8
+jdk:
+  - oraclejdk8
 #scala:
 #  - 2.11.8
 
