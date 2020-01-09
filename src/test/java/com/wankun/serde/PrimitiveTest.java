@@ -11,17 +11,16 @@ import static org.junit.Assert.*;
 public class PrimitiveTest {
 
   @Test
-  public void test1() {
-    System.out.println("ssdf");
-  }
-
-  @Test
   public void testPrimitive() {
-    Integer i = Integer.valueOf(2);
-    assertEquals(true, i.getClass().isPrimitive());
+    int i = 2;
+    i.getClass()
+    assertTrue(int.class.isPrimitive());
+
+    Integer i2 = Integer.valueOf(2);
+    assertFalse(i2.getClass().isPrimitive());
 
     PrimitiveTest o = new PrimitiveTest();
-    assertEquals(true, o.getClass().isPrimitive());
+    assertFalse(o.getClass().isPrimitive());
   }
 
 }
