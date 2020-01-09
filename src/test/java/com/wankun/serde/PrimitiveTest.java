@@ -13,7 +13,6 @@ public class PrimitiveTest {
   @Test
   public void testPrimitive() {
     int i = 2;
-    i.getClass()
     assertTrue(int.class.isPrimitive());
 
     Integer i2 = Integer.valueOf(2);
@@ -21,6 +20,13 @@ public class PrimitiveTest {
 
     PrimitiveTest o = new PrimitiveTest();
     assertFalse(o.getClass().isPrimitive());
+
+    // 数组的类比较特殊
+    PrimitiveTest[] arr = new PrimitiveTest[10];
+    assertEquals(arr.getClass(), PrimitiveTest[].class);
+    assertTrue(arr.getClass().isArray());
+    assertEquals(arr.getClass().getComponentType(), PrimitiveTest.class);
+    assertFalse(arr.getClass().getComponentType().isPrimitive());
   }
 
 }
