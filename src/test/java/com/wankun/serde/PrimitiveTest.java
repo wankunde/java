@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.ObjectStreamClass;
+
 /**
  * @author kun.wan, <kun.wan@leyantech.com>
  * @date 2020-01-07.
@@ -27,6 +29,10 @@ public class PrimitiveTest {
     assertTrue(arr.getClass().isArray());
     assertEquals(arr.getClass().getComponentType(), PrimitiveTest.class);
     assertFalse(arr.getClass().getComponentType().isPrimitive());
+
+    System.out.println(ObjectStreamClass.lookupAny(o.getClass()));
+    System.out.println(ObjectStreamClass.lookupAny(arr.getClass()));
+
   }
 
 }
