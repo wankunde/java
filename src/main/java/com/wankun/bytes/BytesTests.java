@@ -1,13 +1,25 @@
 package com.wankun.bytes;
 
-/**
- * @author kun.wan, <kun.wan@leyantech.com>
- * @date 2020-08-19.
- */
+import java.util.Arrays;
+
 public class BytesTests {
 
     public static void main(String[] args) {
         loopMove();
+        int[][] d = new int[128][1024 * 1024];
+        while (true) {
+            try {
+                for (int i = 0; i < 128; i++) {
+                    int[] v = new int[1024 * 1024];
+                    Arrays.fill(v, 0);
+                    d[i] = v;
+                    System.out.println(i + " : " + Runtime.getRuntime().freeMemory() / 1024 / 1024);
+                    Thread.sleep(10000);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // 位移运算是在数据上下界内进行循环移动的
