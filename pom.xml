@@ -5,7 +5,7 @@
 
   <groupId>com.wankun</groupId>
   <artifactId>java</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>java</name>
@@ -36,6 +36,13 @@
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>com.sun</groupId>
+      <artifactId>tools</artifactId>
+      <version>1.8.0</version>
+      <scope>system</scope>
+      <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+    </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>

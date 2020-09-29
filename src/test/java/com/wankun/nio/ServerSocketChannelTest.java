@@ -19,7 +19,7 @@ import java.util.Arrays;
  */
 public class ServerSocketChannelTest {
 
-  @Test
+
   public void testScatteringAndGathering() throws IOException {
     InetSocketAddress socketAddress = new InetSocketAddress(7000);
     ServerSocketChannel serverSocketChannel =
@@ -52,7 +52,7 @@ public class ServerSocketChannelTest {
 
   }
 
-  @Test
+
   public void testSocketChannel() {
 
     InetSocketAddress socketAddress = new InetSocketAddress(7000);

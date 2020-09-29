@@ -1,25 +1,17 @@
-package com.wankun.complement;
+package com.wankun.lang;
+
+import org.junit.Test;
+import static com.wankun.bytes.PrintUtils.intString;
 
 /**
  * @author wankun
  * @date 2014年10月20日
  * @version 1.0
  */
-public class IntTest {
+public class IntegerTest {
 
-	public static void main(String[] args) {
-		IntTest t = new IntTest();
-		System.out.println("test1 -----------------------");
-		t.test1();
-		System.out.println("test2 -----------------------");
-		t.test2();
-		System.out.println("test3 -----------------------");
-		t.test3();
-		System.out.println("test4 -----------------------");
-		t.test4();
-	}
-
-	private void test1() {
+	@Test
+	public void test1() {
 		// 计算补码
 		System.out.println((byte) 130);
 		int i = 6;
@@ -52,7 +44,8 @@ public class IntTest {
 		// 此时a为11100000,就是32了
 	}
 
-	private void test2() {
+	@Test
+	public void test2() {
 		int i = 170;
 		System.out.println("Number = " + i);
 
@@ -84,12 +77,15 @@ public class IntTest {
 		System.out.print("Number of leading zeros = ");
 		System.out.println(Integer.numberOfLeadingZeros(i));
 
-		System.out.println("int为32最高位前面0的个数：" + Integer.numberOfLeadingZeros(58));
-		System.out.println("int为32最高位前面0的个数：" + Integer.numberOfTrailingZeros(58));
+		System.out.println("binary string for 56：" + intString(56));
+		System.out.println("int为32最高位前面0的个数：" + Integer.numberOfLeadingZeros(56));
+		System.out.println("int为32最高位前面0的个数：" + Integer.numberOfTrailingZeros(56));
+		// 00000000 00000000 00000000 00111000 前面有26个0， 后面有3个0
 	}
 
 	// 快速将指定bit位变为0或1
-	private void test3() {
+	@Test
+	public void test3() {
 		int i = 170;
 		System.out.println("Number = " + i + "  Binary = " + Integer.toBinaryString(i));
 		i = i | 0x00000011;
@@ -105,7 +101,8 @@ public class IntTest {
 	 * java中的数值是int,所以0xFF是int,而byte是有符号数,int亦然,直接由byte升为int
 	 * ,符号自动扩展,而进行了&0xFF后,就把符号问题忽略掉了 ,将byte以纯0/1地引用其内容,所以要0xFF,不是多馀的
 	 */
-	private void test4() {
+	@Test
+	public void test4() {
 		// -1 : 11111111111111111111111111111111
 //		System.out.println(Integer.toBinaryString(255));
 //		System.out.println(Integer.toBinaryString(65535));

@@ -2,6 +2,7 @@ package com.wankun.security;
 
 import java.io.File;
 import java.io.FilePermission;
+import java.security.AccessControlException;
 import java.security.AccessController;
 
 import org.junit.Test;
@@ -11,11 +12,10 @@ import org.junit.Test;
  */
 public class TestAccessController {
 
-	@Test
-	public void testFilePerm() {
-		File f = new File("pom.xml");
-		System.out.println(f.getAbsolutePath()+"  "+f.length());
-		FilePermission perm = new FilePermission("D:\\workspace_download\\java\\pom.xml", "read");
-		AccessController.checkPermission(perm);
-	}
+  @Test(expected = AccessControlException.class)
+  public void testFilePerm() {
+    File f = new File("pom.xml");
+    FilePermission perm = new FilePermission(f.getAbsolutePath(), "read");
+    AccessController.checkPermission(perm);
+  }
 }

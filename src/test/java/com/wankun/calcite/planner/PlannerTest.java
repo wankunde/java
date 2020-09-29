@@ -1,22 +1,14 @@
 package com.wankun.calcite.planner;
 
-import com.google.common.collect.Lists;
 import com.wankun.calcite.PlannerUtil;
-import org.apache.calcite.interpreter.BindableConvention;
 import org.apache.calcite.interpreter.Interpreter;
-import org.apache.calcite.plan.ConventionTraitDef;
 import org.apache.calcite.plan.RelOptCluster;
 import org.apache.calcite.plan.RelOptUtil;
-import org.apache.calcite.plan.RelTraitDef;
 import org.apache.calcite.plan.RelTraitSet;
-import org.apache.calcite.plan.hep.HepPlanner;
-import org.apache.calcite.plan.hep.HepProgramBuilder;
 import org.apache.calcite.plan.volcano.VolcanoPlanner;
-import org.apache.calcite.rel.RelCollationTraitDef;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.rel.RelRoot;
 import org.apache.calcite.rel.metadata.DefaultRelMetadataProvider;
-import org.apache.calcite.rel.rules.FilterJoinRule;
 import org.apache.calcite.rel.rules.FilterMergeRule;
 import org.apache.calcite.rel.rules.FilterProjectTransposeRule;
 import org.apache.calcite.rel.rules.LoptOptimizeJoinRule;
@@ -44,12 +36,10 @@ import org.apache.calcite.tools.ValidationException;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class PlannerTest {
 
 
-  @Test
   public void testPlanner() throws SqlParseException, ValidationException, RelConversionException {
     FrameworkConfig config = PlannerUtil.getFrameworkConfig(CalciteAssert.SchemaSpec.HR);
     Planner planner = Frameworks.getPlanner(config);
@@ -119,7 +109,6 @@ public class PlannerTest {
     System.out.println(RelOptUtil.toString(finalNode, SqlExplainLevel.ALL_ATTRIBUTES));
   }
 
-  @Test
   public void testPlanner3() throws SqlParseException, ValidationException, RelConversionException {
     FrameworkConfig config = PlannerUtil.getFrameworkConfig(CalciteAssert.SchemaSpec.HR);
     Planner planner = Frameworks.getPlanner(config);

@@ -5,6 +5,8 @@ package com.wankun.serde;
  * @date 2019-12-31.
  */
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
@@ -15,21 +17,35 @@ import java.io.*;
  */
 public class SerialbleTest {
 
-  @Test
-  public void testOut03() throws Exception
-  {
-    People p = new People(2,"小白");
-    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("temp01.txt"));
-    out.writeObject(p);
-    out.flush();
-    out.close();
+  File file;
+
+  public void cleanTestFile() {
+    file = new File(SerialbleTest.class.getResource("/").getPath(), "temp01.txt");
+    if (file.exists()) {
+      file.delete();
+    }
+  }
+
+  @Before
+  public void before() {
+    cleanTestFile();
+  }
+
+  @After
+  public void after() {
+    cleanTestFile();
   }
 
   @Test
-  public void testIn03() throws Exception
-  {
-    ObjectInputStream in = new ObjectInputStream(new FileInputStream("temp01.txt"));
-    Kong k = (Kong)in.readObject();
+  public void testSerde() throws Exception {
+    People p = new People(2, "小白");
+    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+    out.writeObject(p);
+    out.flush();
+    out.close();
+
+    ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+    Kong k = (Kong) in.readObject();
     in.close();
     System.out.println(k.s);
   }
