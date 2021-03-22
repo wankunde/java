@@ -1,0 +1,10 @@
+@namespace("com.wankun.avro")
+protocol PageViewProtocol {
+
+  record PageViewRecord {
+    long viewtime = 0;
+    string userid = "";
+    string pageid = "";
+  }
+
+}

@@ -127,6 +127,18 @@
       <artifactId>netty-all</artifactId>
       <version>4.1.40.Final</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.java-allocation-instrumenter</groupId>
+      <artifactId>java-allocation-instrumenter</artifactId>
+      <version>3.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -181,8 +193,30 @@
             <configuration>
               <sources>
                 <source>src/gen/antlr4</source>
+                <source>src/gen/avro</source>
                 <source>${project.build.directory}/generated-sources/java</source>
               </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <version>1.9.2</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>schema</goal>
+              <goal>protocol</goal>
+              <goal>idl-protocol</goal>
+            </goals>
+            <configuration>
+              <!-- 源目录，用于存放 avro的schema文件及protocol文件 ,如果没加如下配置，那么默认从/src/main/avro下面找avsc文件，生成的java文件放到target/generated-sources/avro下面-->
+              <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+              <outputDirectory>${project.basedir}/src/gen/avro/</outputDirectory>
             </configuration>
           </execution>
         </executions>
