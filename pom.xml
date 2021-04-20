@@ -84,12 +84,6 @@
       <version>3.1</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr4-runtime</artifactId>
-      <version>4.7.1</version>
-    </dependency>
-
     <!-- for calcite -->
     <dependency>
       <groupId>org.apache.calcite</groupId>
@@ -154,32 +148,6 @@
       </plugin>
 
       <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>4.7</version>
-        <executions>
-          <execution>
-            <id>antlr</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-            <phase>generate-sources</phase>
-          </execution>
-        </executions>
-        <configuration>
-          <!-- com/wankun/antlr4 -->
-          <sourceDirectory>src/main/java/</sourceDirectory>
-          <outputDirectory>src/gen/antlr4/</outputDirectory>
-          <!-- 使用 visitor 模式 而不是 listener 模式 -->
-          <!-- –no-listener –vistor –encoding UTF-8 -->
-          <listener>false</listener>
-          <visitor>true</visitor>
-          <outputEncoding>UTF-8</outputEncoding>
-          <treatWarningsAsErrors>true</treatWarningsAsErrors>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <version>1.8</version>
@@ -192,7 +160,6 @@
             </goals>
             <configuration>
               <sources>
-                <source>src/gen/antlr4</source>
                 <source>src/gen/avro</source>
                 <source>${project.build.directory}/generated-sources/java</source>
               </sources>
