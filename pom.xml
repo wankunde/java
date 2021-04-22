@@ -17,7 +17,7 @@
     <guava.version>18.0</guava.version>
     <junit.version>4.10</junit.version>
     <commons-math3.version>3.3</commons-math3.version>
-    <calcite.version>1.18.0</calcite.version>
+    <calcite.version>1.26.0</calcite.version>
   </properties>
 
   <repositories>
