@@ -1,7 +1,5 @@
 package com.wankun.nio.chatgroup;
 
-import javafx.scene.control.SelectionMode;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
