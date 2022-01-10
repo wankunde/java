@@ -17,12 +17,14 @@ public class NioServer {
 
   public static void main(String[] args) throws IOException {
     ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+    // 1. socket channel必须是block模式
     serverSocketChannel.configureBlocking(false);
 
     serverSocketChannel.bind(new InetSocketAddress(7000));
+    // 2. 创建一个Selector
     Selector selector = Selector.open();
 
-    // 如果需要使用selector模型，前面必须要先设置为非阻塞模式
+    // 3.如果需要使用selector模型，前面必须要先设置为非阻塞模式
     serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
     while (true) {
