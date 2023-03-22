@@ -138,6 +138,16 @@
       <artifactId>java-allocation-instrumenter</artifactId>
       <version>3.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>1.36</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>1.36</version>
+    </dependency>
   </dependencies>
 
   <build>

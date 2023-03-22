@@ -1,0 +1,48 @@
+$ javap -c ./target/classes/com/wankun/jit/CommonExpessions.class
+Compiled from "CommonExpessions.java"
+public class com.wankun.jit.CommonExpessions {
+  public com.wankun.jit.CommonExpessions();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: iconst_0
+       1: istore_1
+       2: iload_1
+       3: ldc           #2                  // int 1000000
+       5: if_icmpge     20
+       8: iconst_1
+       9: iconst_2
+      10: iconst_3
+      11: invokestatic  #3                  // Method sum:(III)V
+      14: iinc          1, 1
+      17: goto          2
+      20: return
+
+  public static void sum(int, int, int);
+    Code:
+       // b * c * 12
+       0: iload_1
+       1: iload_2
+       2: imul
+       3: bipush        12
+       5: imul
+
+       // ${RES} + a
+       6: iload_0
+       7: iadd
+
+       // a + (b * c)
+       8: iload_0
+       9: iload_1
+      10: iload_2
+      11: imul
+      12: iadd
+
+      13: iadd
+      14: istore_3
+      15: return
+}
