@@ -16,48 +16,64 @@
     <java.version>1.8</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <guava.version>18.0</guava.version>
+    <guava.version>23.0</guava.version>
     <junit.version>4.13.1</junit.version>
     <commons-math3.version>3.3</commons-math3.version>
     <calcite.version>1.26.0</calcite.version>
-    <log4j.version>1.2.17</log4j.version>
+    <log4j2.version>2.20.0</log4j2.version>
+    <slf4j.version>2.0.6</slf4j.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>nexus-aliyun</id>
-      <name>Nexus aliyun</name>
-      <layout>default</layout>
-      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-  </repositories>
-
   <dependencies>
-      <!--<dependency>
-      <groupId></groupId>
-      <artifactId>jdk.tools</artifactId>
-      </dependency>-->
+    <!--<dependency>
+    <groupId></groupId>
+    <artifactId>jdk.tools</artifactId>
+    </dependency>-->
+    <!-- 1. 使用slf4j API 且支持 JUL 和 JCL API 转换成 slf4j API -->
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>apache-log4j-extras</artifactId>
-      <version>${log4j.version}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.5</version>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <!-- 2. 使用log4j 实现 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <!-- 3. 桥接：告诉Slf4j使用Log4j2 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <!-- 4. 支持log4j 1 -->
+    <dependency>
+      <!-- API bridge between log4j 1 and 2 -->
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-1.2-api</artifactId>
+      <version>${log4j2.version}</version>
+      <scope>${hadoop.deps.scope}</scope>
+    </dependency>
+
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
