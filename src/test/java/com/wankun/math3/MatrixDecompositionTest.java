@@ -39,8 +39,6 @@ public class MatrixDecompositionTest {
 		RealMatrix b = MatrixUtils.createRealMatrix(new double[][] { { 1, 0 }, { 2, -5 }, { 3, 1 } });
 		DecompositionSolver solver = LU.getSolver();
 		System.out.println("solve Ax = b (when b is matrix) is x = " + solver.solve(b));
-		// System.out.println("solve Ax = b (when b is vector) is x = "+new
-		// ArrayRealVector(solver.solve(b.getColumn(0))));
 		// matrix inverse
 		System.out.println("matrix inverse is " + solver.getInverse());
 	}
