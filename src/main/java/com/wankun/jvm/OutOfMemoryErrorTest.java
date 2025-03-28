@@ -17,17 +17,16 @@
 
 package com.wankun.jvm;
 
+/*-XX:+UseG1GC -Xmx1024m -Xlog:gc*
+ * */
 public class OutOfMemoryErrorTest {
 
   public static void main(String[] args) throws InterruptedException {
-    byte[][] bs = new byte[10][];
-    for (int i = 0; i < bs.length; i++) {
-      System.out.println("Allocate memory for buffer " + i);
-      if (i > 0) {
-        bs[i - 1] = null;
-      }
-      bs[i] = new byte[1024 * 1024 * 20];
-      Thread.sleep(2000L);
+    long[] arr;
+    while (true) {
+      arr = new long[1024 * 1024 * 100];
+      System.out.println("Allocated 100MB of long array, total allocated: " + (arr.length * 8 / (1024 * 1024)) + "MB");
+      Thread.sleep(100);
     }
   }
 }
